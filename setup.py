@@ -10,7 +10,7 @@ setup(
     download_url='https://github.com/syntaf/travis-sphinx/tarball/0.0.0',
     keywords=['documentation', 'travis', 'python', 'deploy'],
     packages = find_packages(),
-    py_modules = ['travis-sphinx'],
+    py_modules = ['travis_sphinx'],
     entry_points = {
         'console_scripts' : ['travis-sphinx=travis-sphinx:main']
     },
