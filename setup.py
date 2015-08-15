@@ -7,7 +7,7 @@ setup(
     author='Grant Mercer',
     author_email='gmercer015@gmail.com',
     url='https://github.com/syntaf/travis-sphinx',
-    download_url='https://github.com/syntaf/travis-sphinx/tarball/0.0.0',
+    download_url='https://github.com/Syntaf/travis-sphinx/archive/master.zip',
     keywords=['documentation', 'travis', 'python', 'deploy'],
     packages = find_packages(),
     py_modules = ['travis_sphinx'],
