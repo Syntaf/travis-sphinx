@@ -14,6 +14,9 @@ setup(
     entry_points = {
         'console_scripts' : ['travis-sphinx=travis_sphinx:main']
     },
+    install_requires=[
+        'sphinx'
+    ],
     classifiers = ['Topic :: Software Development :: Documentation',
                    'Programming Language :: Python'],
 )
