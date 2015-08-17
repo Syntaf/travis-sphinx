@@ -2,16 +2,30 @@ import os
 import sys
 import subprocess
 import getopt
+import sphinx
 
 def run(*args):
     ret = subprocess.call(args, stdout=sys.stdout, stderr=sys.stderr)
     if ret != 0:
         exit(ret)
 
-def build():
-    pass
+def build_docs(source_dir, target_dir):
+    """
+    Build documentation from ``source_dir``, placing built files in
+    ``target_dir``.
 
-def deploy():
+    :param str source_dir: location of sphinx documentation files
+    :param str target_dir: location to build to
+    """
+    sphinx.build_main(['-b html', source_dir, target_dir])
+
+def deploy_docs(target_dir):
+    """
+    Deploy built docs to gh-pages, uses ``GH_TOKEN`` for pushing built
+    documentation files located in *target/doc* to gh
+
+    :param str target_dir: directory that build files were written to
+    """
     branch = os.environ['TRAVIS_BRANCH']
     pr = os.environ['TRAVIS_PULL_REQUEST']
     token = os.environ['GH_TOKEN']
@@ -27,12 +41,14 @@ def deploy():
 
 def usage():
     print 'Usage: travis-sphinx [options] {actions}\n'
-    print 'Options:\n  -h, --help\t\tProvide information on script or following action\n' + \
+    print 'Options:\n  -h, --help\t\tSee usage of script\n' + \
           '  -s, --source\t\tSource directory of sphinx docs, default is docs/source'
-    print 'Actions:\n  build\t\tBuild sphinx documentation\n  deploy\t\tDeploy sphinx docs to travis branch'
+    print 'Actions:\n  build \t\tBuild sphinx documentation, places docs in target/doc' + \
+          '\n  deploy\t\tDeploy sphinx docs to travis branch by pulling from target/doc'
 
 def main():
     source_dir = 'docs/source'
+    target_dir = 'target/doc/build'
     # Print usage if no arguments entered
     if len(sys.argv) == 1:
         print 'travis-sphinx v0.0.1'
@@ -50,6 +66,15 @@ def main():
             usage()
             sys.exit(2)
         elif opt in ('s', '--source'):
+            if sys.argv[-1] == 'deploy':
+                print 'source option not allowed for deploy'
+                sys.exit(2)
             source_dir = arg
 
-    print source_dir
+    if sys.argv[-1] == 'build':
+        build_docs(source_dir, target_dir)
+    elif sys.argv[-1] == 'deploy':
+        deploy_docs(target_dir)
+
+if __name__ == '__main__':
+    main()
