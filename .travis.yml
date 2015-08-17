@@ -15,6 +15,7 @@ install:
 
 script:
     - travis-sphinx build
-
-after_success:
     - travis-sphinx deploy
+
+# after_success:
+    # travis-sphinx deploy should technically go here
