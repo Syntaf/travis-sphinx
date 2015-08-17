@@ -40,6 +40,10 @@ def deploy_docs(target_dir):
             % (token, repo), 'gh-pages)')
 
 def usage():
+    """
+    Print usage message when a user does not enter any cline args, or
+    if they specify --help
+    """
     print 'Usage: travis-sphinx [options] {actions}\n'
     print 'Options:\n  -h, --help\t\tSee usage of script\n' + \
           '  -s, --source\t\tSource directory of sphinx docs, default is docs/source'
