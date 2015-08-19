@@ -9,6 +9,8 @@ A standalone script for automated building and deploying of sphinx docs via trav
 * [Example](#example-configuration)
 * [Help](#help)
 
+*Check out [dnppy](https://github.com/NASA-DEVELOP/dnppy) for a live example of `travis-sphinx` in action!*
+
 Installation
 ==============
 ```
