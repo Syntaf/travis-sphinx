@@ -9,7 +9,7 @@ def run(*args):
     if ret != 0:
         exit(ret)
 
-def build_docs(sphinx_args):
+def build_docs(source_dir, target_dir, flags):
     """
     Build documentation from ``source_dir``, placing built files in
     ``target_dir``.
@@ -17,8 +17,11 @@ def build_docs(sphinx_args):
     :param str source_dir: location of sphinx documentation files
     :param str target_dir: location to build to
     """
-    sphinx.build_main(sphinx_args)
-    open('%s/.nojekyll' % sphinx_args[-1], 'a').close()
+    args = ['-b html']
+    if len(flags):
+        args = args + flags
+    sphinx.build_main(args + [source_dir, target_dir])
+    open('%s/.nojekyll' % target_dir, 'a').close()
 
 def deploy_docs(target_dir):
     """
@@ -55,7 +58,7 @@ def usage():
 def main():
     source_dir = 'docs/source'
     target_dir = 'target/doc/build'
-    sphinx_args = ['-b html']
+    flags = ['-W']
     # Print usage if no arguments entered
     if len(sys.argv) == 1:
         print 'travis-sphinx v0.0.1'
@@ -77,13 +80,11 @@ def main():
                 print 'source option not allowed for deploy'
                 sys.exit(2)
         elif opt in ('-n', '--nowarn'):
-            sphinx_args.append('-W')
+            flags.remove('-W')
         source_dir = arg
 
     if sys.argv[-1] == 'build':
-        sphinx_args.append(source_dir)
-        sphinx_args.append(target_dir)
-        build_docs(sphinx_args)
+        build_docs(source_dir, target_dir, flags)
     elif sys.argv[-1] == 'deploy':
         deploy_docs(target_dir)
     else:
