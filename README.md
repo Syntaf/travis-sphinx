@@ -96,6 +96,7 @@ Usage: travis-sphinx [options] {actions}
 Options:
   -h, --help		Provide information on script or following action
   -s, --source		Source directory of sphinx docs, default is docs/source
+  -n, --nowarn      Do no error on warnings
 Actions:
   build 		Build sphinx documentation
   deploy		Deploy sphinx docs to travis branch
