@@ -20,8 +20,10 @@ def build_docs(source_dir, target_dir, flags):
     args = ['-b html']
     if len(flags):
         args = args + flags
-    sphinx.build_main(args + [source_dir, target_dir])
+    if sphinx.build_main(args + [source_dir, target_dir]):
+        return False
     open('%s/.nojekyll' % target_dir, 'a').close()
+    return True
 
 def deploy_docs(target_dir):
     """
@@ -84,7 +86,8 @@ def main():
         source_dir = arg
 
     if sys.argv[-1] == 'build':
-        build_docs(source_dir, target_dir, flags)
+        if not build_docs(source_dir, target_dir, flags):
+            exit(2)
     elif sys.argv[-1] == 'deploy':
         deploy_docs(target_dir)
     else:
