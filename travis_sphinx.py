@@ -17,7 +17,7 @@ def build_docs(source_dir, target_dir):
     :param str source_dir: location of sphinx documentation files
     :param str target_dir: location to build to
     """
-    sphinx.build_main(['-b html', source_dir, target_dir])
+    sphinx.build_main(['-b html', '-W', source_dir, target_dir])
     open('%s/.nojekyll' % target_dir, 'a').close()
 
 def deploy_docs(target_dir):
