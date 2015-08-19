@@ -9,7 +9,7 @@ def run(*args):
     if ret != 0:
         exit(ret)
 
-def build_docs(source_dir, target_dir):
+def build_docs(sphinx_args):
     """
     Build documentation from ``source_dir``, placing built files in
     ``target_dir``.
@@ -17,8 +17,8 @@ def build_docs(source_dir, target_dir):
     :param str source_dir: location of sphinx documentation files
     :param str target_dir: location to build to
     """
-    sphinx.build_main(['-b html', '-W', source_dir, target_dir])
-    open('%s/.nojekyll' % target_dir, 'a').close()
+    sphinx.build_main(sphinx_args)
+    open('%s/.nojekyll' % sphinx_args[-1], 'a').close()
 
 def deploy_docs(target_dir):
     """
@@ -47,20 +47,22 @@ def usage():
     """
     print 'Usage: travis-sphinx [options] {actions}\n'
     print 'Options:\n  -h, --help\t\tSee usage of script\n' + \
-          '  -s, --source\t\tSource directory of sphinx docs, default is docs/source'
+          '  -s, --source\t\tSource directory of sphinx docs, default is docs/source' + \
+          '  -n, --nowarn\t\tDo not error on warnings'
     print 'Actions:\n  build \t\tBuild sphinx documentation, places docs in target/doc' + \
           '\n  deploy\t\tDeploy sphinx docs to travis branch by pulling from target/doc'
 
 def main():
     source_dir = 'docs/source'
     target_dir = 'target/doc/build'
+    sphinx_args = ['-b html']
     # Print usage if no arguments entered
     if len(sys.argv) == 1:
         print 'travis-sphinx v0.0.1'
         usage()
         exit(0)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'hs:', ['help', 'source='])
+        opts, args = getopt.getopt(sys.argv[1:], 'nhs:', ['nowarn', 'help', 'source='])
 
     except getopt.GetoptError as err:
         print str(err) + ', see --help for valid arguments'
@@ -70,16 +72,23 @@ def main():
         if opt in ('-h', '--help'):
             usage()
             sys.exit(2)
-        elif opt in ('s', '--source'):
+        elif opt in ('-s', '--source'):
             if sys.argv[-1] == 'deploy':
                 print 'source option not allowed for deploy'
                 sys.exit(2)
-            source_dir = arg
+        elif opt in ('-n', '--nowarn'):
+            sphinx_args.append('-W')
+        source_dir = arg
 
     if sys.argv[-1] == 'build':
-        build_docs(source_dir, target_dir)
+        sphinx_args.append(source_dir)
+        sphinx_args.append(target_dir)
+        build_docs(sphinx_args)
     elif sys.argv[-1] == 'deploy':
         deploy_docs(target_dir)
+    else:
+        usage() 
+        exit(2)
 
 if __name__ == '__main__':
     main()
