@@ -18,7 +18,7 @@ travis-sphinx aims to take the hassle out of building and pushing docs to your g
 Installation
 ==============
 ```
-pip install --user git+https://github.com/Syntaf/travis-sphinx.git
+pip install --user travis-sphinx
 export PATH=$HOME/.local/bin:$PATH
 ```
 
