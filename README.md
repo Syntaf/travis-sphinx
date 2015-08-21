@@ -2,6 +2,10 @@ travis-sphinx [![Build Status](https://travis-ci.org/Syntaf/travis-sphinx.svg?br
 ================
 A standalone script for automated building and deploying of sphinx docs via travis-ci
 
+#### What does it do? 
+
+travis-sphinx aims to take the hassle out of building and pushing docs to your gh-pages. deploying to your github page can be tedious especially when you're making many small changes overtime or even just making a minor revision you'd like to see live; `travis-sphinx` will automate your build and deploy process with the help of [travis-ci](https://travis-ci.org/)! 
+
 * [Installation](#installation)
 * [Getting Started](#getting-started)
   * [Obtaining a personal access token](#obtaining-a-personal-access-token)
@@ -14,7 +18,7 @@ A standalone script for automated building and deploying of sphinx docs via trav
 Installation
 ==============
 ```
-pip install --user git+https://github.com/Syntaf/travis-sphinx.git
+pip install --user travis-sphinx
 export PATH=$HOME/.local/bin:$PATH
 ```
 
