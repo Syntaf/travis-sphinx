@@ -17,6 +17,7 @@ def build_docs(source_dir, target_dir, flags):
     :param str source_dir: location of sphinx documentation files
     :param str target_dir: location to build to
     """
+    print 'building documentation'
     args = ['-b html']
     if len(flags):
         args = args + flags
@@ -44,6 +45,9 @@ def deploy_docs(target_dir):
         run('./ghp-import/ghp-import', '-n', 'target/doc/build')
         run('git', 'push', '-fq', 'https://%s@github.com/%s.git'
             % (token, repo), 'gh-pages')
+    else:
+        print 'build triggered for non-master branch \'' + branch + \
+                '\', skipping deploy...'
 
 def usage():
     """
