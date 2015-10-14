@@ -83,7 +83,7 @@ before_install:
 
 install:
     - conda install --yes python="2.7" sphinx
-    - pip install --user git+https://github.com/Syntaf/travis-sphinx.git
+    - pip install --user travis-sphinx
 
 script:
     - travis-sphinx build
