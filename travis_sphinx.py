@@ -42,7 +42,7 @@ def deploy_docs(target_dir):
         print('uploading docs...')
         sys.stdout.flush()
         run('git', 'clone', 'https://github.com/davisp/ghp-import')
-        run('./ghp-import/ghp-import', '-n', 'target/doc/build')
+        run('./ghp-import/ghp_import.py', '-n', 'target/doc/build')
         run('git', 'push', '-fq', 'https://%s@github.com/%s.git'
             % (token, repo), 'gh-pages')
     else:
