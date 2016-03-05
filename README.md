@@ -96,13 +96,15 @@ Also see a working example at the [dnppy](https://github.com/NASA-DEVELOP/dnppy)
 
 ### Help
 ```
-travis-sphinx v0.0.1
+travis-sphinx v1.4.0
 Usage: travis-sphinx [options] {actions}
 
 Options:
   -h, --help		Provide information on script or following action
   -s, --source		Source directory of sphinx docs, default is docs/source
   -n, --nowarn      Do no error on warnings
+  -b, --branches Comma separated list of branches to build on. Default is =master
+  -p, --pullrequests Deploy on pull requests (not recommended)
 Actions:
   build 		Build sphinx documentation
   deploy		Deploy sphinx docs to travis branch
