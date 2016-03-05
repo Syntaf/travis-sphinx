@@ -59,7 +59,7 @@ def usage():
           '  -s, --source\t\tSource directory of sphinx docs, default is docs/source\n' + \
           '  -n, --nowarn\t\tDo not error on warnings\n' + \
           '  -b, --branches\tComma separated list of branches to build on\n\t\t\tdefault is =master\n'
-          '  -p, --pullrequests\tBuild pull requests')
+          '  -p, --pullrequests\tDeploy on pull requests (not recommended)')
     print('Actions:\n  build \t\tBuild sphinx documentation, places docs in target/doc' + \
           '\n  deploy\t\tDeploy sphinx docs to travis branch by pulling from\n\t\t\ttarget/doc')
 
