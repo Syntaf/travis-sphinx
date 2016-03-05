@@ -26,7 +26,7 @@ def build_docs(source_dir, target_dir, flags):
     open('%s/.nojekyll' % target_dir, 'a').close()
     return True
 
-def deploy_docs(target_dir):
+def deploy_docs(target_dir, branches, pr_flag):
     """
     Deploy built docs to gh-pages, uses ``GH_TOKEN`` for pushing built
     documentation files located in *target/doc* to gh
@@ -38,7 +38,7 @@ def deploy_docs(target_dir):
     token = os.environ['GH_TOKEN']
     repo = os.environ['TRAVIS_REPO_SLUG']
 
-    if branch == 'master' and pr == 'false':
+    if branch in branches and (pr == False or pr_flag):
         print('uploading docs...')
         sys.stdout.flush()
         run('git', 'clone', 'https://github.com/davisp/ghp-import')
@@ -56,44 +56,53 @@ def usage():
     """
     print('Usage: travis-sphinx [options] {actions}\n')
     print('Options:\n  -h, --help\t\tSee usage of script\n' + \
-          '  -s, --source\t\tSource directory of sphinx docs, default is docs/source' + \
-          '  -n, --nowarn\t\tDo not error on warnings')
+          '  -s, --source\t\tSource directory of sphinx docs, default is docs/source\n' + \
+          '  -n, --nowarn\t\tDo not error on warnings\n' + \
+          '  -b, --branches\tComma separated list of branches to build on\n\t\t\tdefault is =master\n'
+          '  -p, --pullrequests\tBuild pull requests')
     print('Actions:\n  build \t\tBuild sphinx documentation, places docs in target/doc' + \
-          '\n  deploy\t\tDeploy sphinx docs to travis branch by pulling from target/doc')
+          '\n  deploy\t\tDeploy sphinx docs to travis branch by pulling from\n\t\t\ttarget/doc')
 
 def main():
     source_dir = 'docs/source'
     target_dir = 'target/doc/build'
     flags = ['-W']
+    branches = ['master']
+    pr_flag = False
     # Print usage if no arguments entered
     if len(sys.argv) == 1:
-        print('travis-sphinx v0.0.1')
+        print('travis-sphinx v1.4.0')
         usage()
         exit(0)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'nhs:', ['nowarn', 'help', 'source='])
+        opts, args = getopt.getopt(sys.argv[1:], 'nhsbp:', ['nowarn', 'help', 'source=', 'branches=', 'pullrequests'])
 
     except getopt.GetoptError as err:
         print(str(err) + ', see --help for valid arguments')
         sys.exit(2)
 
     for opt, arg in opts:
+        print opt, " ", arg
         if opt in ('-h', '--help'):
             usage()
             sys.exit(2)
-        elif opt in ('-s', '--source'):
+        if opt in ('-s', '--source'):
             if sys.argv[-1] == 'deploy':
                 print('source option not allowed for deploy')
                 sys.exit(2)
-        elif opt in ('-n', '--nowarn'):
+            source_dir = arg
+        if opt in ('-n', '--nowarn'):
             flags.remove('-W')
-        source_dir = arg
+        if opt in ('b', '--branches'):
+            branches = [x.strip(' ') for x in arg.split(',')]
+        if opt in ('p', '--pullrequests'):
+            pr_flag = True
 
     if sys.argv[-1] == 'build':
         if not build_docs(source_dir, target_dir, flags):
             exit(2)
     elif sys.argv[-1] == 'deploy':
-        deploy_docs(target_dir)
+        deploy_docs(target_dir, branches, pr_flag)
     else:
         usage() 
         exit(2)
