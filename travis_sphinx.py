@@ -82,7 +82,7 @@ def main():
         sys.exit(2)
 
     for opt, arg in opts:
-        print opt, " ", arg
+        print(opt, " ", arg)
         if opt in ('-h', '--help'):
             usage()
             sys.exit(2)
