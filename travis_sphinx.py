@@ -48,6 +48,7 @@ def deploy_docs(target_dir, branches, pr_flag):
     else:
         print('build triggered for non-master branch \'' + branch + \
                 '\', skipping deploy...')
+        exit(1)
 
 def usage():
     """
