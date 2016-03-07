@@ -72,7 +72,7 @@ def main():
     pr_flag = False
     # Print usage if no arguments entered
     if len(sys.argv) == 1:
-        print('travis-sphinx v1.4.0')
+        print('travis-sphinx v1.4.1')
         usage()
         exit(0)
     try:
