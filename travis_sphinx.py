@@ -38,7 +38,7 @@ def deploy_docs(target_dir, branches, pr_flag):
     token = os.environ['GH_TOKEN']
     repo = os.environ['TRAVIS_REPO_SLUG']
 
-    if branch in branches and (pr == False or pr_flag):
+    if branch in branches and (pr == 'false' or pr_flag):
         print('uploading docs...')
         sys.stdout.flush()
         run('git', 'clone', 'https://github.com/davisp/ghp-import')
@@ -48,6 +48,7 @@ def deploy_docs(target_dir, branches, pr_flag):
     else:
         print('build triggered for non-master branch \'' + branch + \
                 '\', skipping deploy...')
+        exit(1)
 
 def usage():
     """
