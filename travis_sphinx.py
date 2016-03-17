@@ -21,8 +21,6 @@ def build_docs(source_dir, target_dir, flags):
     args = ['-b html']
     if len(flags):
         args = args + flags
-    all_args = args + [source_dir, target_dir]
-    print(all_args)
     if sphinx.build_main(args + [source_dir, target_dir]):
         return False
     open('%s/.nojekyll' % target_dir, 'a').close()
