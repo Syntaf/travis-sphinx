@@ -58,6 +58,7 @@ def usage():
     print('Usage: travis-sphinx [options] {actions}\n')
     print('Options:\n  -h, --help\t\tSee usage of script\n' + \
           '  -s, --source\t\tSource directory of sphinx docs, default is docs/source\n' + \
+          '  -o, --outdir\t\tDirectory to put html docs, default is targe/doc/build\n' + \
           '  -n, --nowarn\t\tDo not error on warnings\n' + \
           '  -b, --branches\tComma separated list of branches to build on\n\t\t\tdefault is =master\n'
           '  -p, --pullrequests\tDeploy on pull requests (not recommended)')
@@ -76,7 +77,7 @@ def main():
         usage()
         exit(0)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'nhsbp:', ['nowarn', 'help', 'source=', 'branches=', 'pullrequests'])
+        opts, args = getopt.getopt(sys.argv[1:], 'nhs:o:bp:', ['nowarn', 'help', 'source=', 'outdir=', 'branches=', 'pullrequests'])
 
     except getopt.GetoptError as err:
         print(str(err) + ', see --help for valid arguments')
@@ -91,6 +92,11 @@ def main():
                 print('source option not allowed for deploy')
                 sys.exit(2)
             source_dir = arg
+        if opt in ('-o', '--outdir'):
+            if sys.argv[-1] == 'deploy':
+                print('outdir option not allowed for deploy')
+                sys.exit(2)
+            target_dir = arg
         if opt in ('-n', '--nowarn'):
             flags.remove('-W')
         if opt in ('b', '--branches'):
