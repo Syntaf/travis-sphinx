@@ -37,8 +37,14 @@ def deploy_docs(target_dir, branches, pr_flag):
     pr = os.environ['TRAVIS_PULL_REQUEST']
     token = os.environ['GH_TOKEN']
     repo = os.environ['TRAVIS_REPO_SLUG']
+    tag = os.environ['TRAVIS_TAG']
+    build_flag = False
 
     if branch in branches and (pr == 'false' or pr_flag):
+        build_flag = True
+    if tag and (pr == 'false' or pr_flag):
+        build_flag = True
+    if build_flag:
         print('uploading docs...')
         sys.stdout.flush()
         run('git', 'clone', 'https://github.com/davisp/ghp-import')
