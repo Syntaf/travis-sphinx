@@ -58,7 +58,7 @@ def usage():
     print('Usage: travis-sphinx [options] {actions}\n')
     print('Options:\n  -h, --help\t\tSee usage of script\n' + \
           '  -s, --source\t\tSource directory of sphinx docs, default is docs/source\n' + \
-          '  -o, --outdir\t\tDirectory to put html docs, default is targe/doc/build\n' + \
+          '  -o, --outdir\t\tDirectory to put html docs, default is target/doc/build\n' + \
           '  -n, --nowarn\t\tDo not error on warnings\n' + \
           '  -b, --branches\tComma separated list of branches to build on\n\t\t\tdefault is =master\n'
           '  -p, --pullrequests\tDeploy on pull requests (not recommended)')
