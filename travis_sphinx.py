@@ -37,8 +37,9 @@ def deploy_docs(target_dir, branches, pr_flag):
     pr = os.environ['TRAVIS_PULL_REQUEST']
     token = os.environ['GH_TOKEN']
     repo = os.environ['TRAVIS_REPO_SLUG']
+    tag = os.environ['TRAVIS_TAG']
 
-    if branch in branches and (pr == 'false' or pr_flag):
+    if (branch in branches and (pr == 'false' or pr_flag)) or tag:
         print('uploading docs...')
         sys.stdout.flush()
         run('git', 'clone', 'https://github.com/davisp/ghp-import')
@@ -58,7 +59,7 @@ def usage():
     print('Usage: travis-sphinx [options] {actions}\n')
     print('Options:\n  -h, --help\t\tSee usage of script\n' + \
           '  -s, --source\t\tSource directory of sphinx docs, default is docs/source\n' + \
-          '  -o, --outdir\t\tDirectory to put html docs, default is targe/doc/build\n' + \
+          '  -o, --outdir\t\tDirectory to put html docs, default is target/doc/build\n' + \
           '  -n, --nowarn\t\tDo not error on warnings\n' + \
           '  -b, --branches\tComma separated list of branches to build on\n\t\t\tdefault is =master\n'
           '  -p, --pullrequests\tDeploy on pull requests (not recommended)')
