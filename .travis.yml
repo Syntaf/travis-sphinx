@@ -6,5 +6,5 @@ install:
     - export PATH=$HOME/.local/bin:$PATH
 
 script:
-    - travis-sphinx --source=test/docs/source build
+    - travis-sphinx --pullrequests --source=test/docs/source build
     - travis-sphinx deploy
