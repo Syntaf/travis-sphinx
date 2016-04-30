@@ -78,7 +78,7 @@ def main():
         usage()
         exit(0)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'nhs:o:bp:', ['nowarn', 'help', 'source=', 'outdir=', 'branches=', 'pullrequests'])
+        opts, args = getopt.getopt(sys.argv[1:], 'nhs:o:b:p', ['nowarn', 'help', 'source=', 'outdir=', 'branches=', 'pullrequests'])
 
     except getopt.GetoptError as err:
         print(str(err) + ', see --help for valid arguments')
