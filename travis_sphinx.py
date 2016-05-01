@@ -7,7 +7,7 @@ import sphinx
 def run(*args):
     ret = subprocess.call(args, stdout=sys.stdout, stderr=sys.stderr)
     if ret != 0:
-        exit(ret)
+        sys.exit(ret)
 
 def build_docs(source_dir, target_dir, flags):
     """
@@ -40,7 +40,7 @@ def deploy_docs(target_dir, branches, pr_flag):
     tag = os.environ['TRAVIS_TAG']
 
     if token is None:
-        print("ERROR: GH_TOKEN is missing!", file=sys.stderr)
+        print("ERROR: GH_TOKEN is missing!")
         sys.exit(3)
 
     if (branch in branches and (pr == 'false' or pr_flag)) or tag:
@@ -53,7 +53,7 @@ def deploy_docs(target_dir, branches, pr_flag):
     else:
         print('build triggered for non-master branch \'' + branch + \
                 '\', skipping deploy...')
-        exit(1)
+        sys.exit(1)
 
 def usage():
     """
@@ -80,7 +80,7 @@ def main():
     if len(sys.argv) == 1:
         print('travis-sphinx v1.4.1')
         usage()
-        exit(0)
+        sys.exit(0)
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'nhs:o:b:p', ['nowarn', 'help', 'source=', 'outdir=', 'branches=', 'pullrequests'])
 
@@ -111,12 +111,12 @@ def main():
 
     if sys.argv[-1] == 'build':
         if not build_docs(source_dir, target_dir, flags):
-            exit(2)
+            sys.exit(2)
     elif sys.argv[-1] == 'deploy':
         deploy_docs(target_dir, branches, pr_flag)
     else:
         usage() 
-        exit(2)
+        sys.exit(2)
 
 if __name__ == '__main__':
     main()
