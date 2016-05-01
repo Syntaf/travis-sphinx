@@ -35,9 +35,13 @@ def deploy_docs(target_dir, branches, pr_flag):
     """
     branch = os.environ['TRAVIS_BRANCH']
     pr = os.environ['TRAVIS_PULL_REQUEST']
-    token = os.environ['GH_TOKEN']
+    token = os.environ.get('GH_TOKEN')
     repo = os.environ['TRAVIS_REPO_SLUG']
     tag = os.environ['TRAVIS_TAG']
+
+    if token is None:
+        print("ERROR: GH_TOKEN is missing!", file=sys.stderr)
+        sys.exit(3)
 
     if (branch in branches and (pr == 'false' or pr_flag)) or tag:
         print('uploading docs...')
