@@ -13,7 +13,7 @@ travis-sphinx aims to take the hassle out of building and pushing docs to your g
 * [Example](#example-configuration)
 * [Help](#help)
 
-*Check out [dnppy](https://github.com/NASA-DEVELOP/dnppy) for a live example of `travis-sphinx` in action!*
+*Check out [cadquery](https://github.com/dcowden/cadquery) for a live example of `travis-sphinx` in action!*
 
 Installation
 ==============
