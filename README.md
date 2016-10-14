@@ -100,10 +100,11 @@ travis-sphinx v1.4.0
 Usage: travis-sphinx [options] {actions}
 
 Options:
-  -h, --help		Provide information on script or following action
-  -s, --source		Source directory of sphinx docs, default is docs/source
-  -n, --nowarn      Do no error on warnings
-  -b, --branches Comma separated list of branches to build on. Default is =master
+  -h, --help		 Provide information on script or following action
+  -s, --source		 Source directory of sphinx docs, default is docs/source
+  -o, --outdir       Directory to put html docs, default is target/doc/build
+  -n, --nowarn       Do no error on warnings
+  -b, --branches     Comma separated list of branches to build on. Default is =master
   -p, --pullrequests Deploy on pull requests (not recommended)
 Actions:
   build 		Build sphinx documentation
