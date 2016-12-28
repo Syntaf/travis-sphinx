@@ -104,9 +104,9 @@ def main():
             target_dir = arg
         if opt in ('-n', '--nowarn'):
             flags.remove('-W')
-        if opt in ('b', '--branches'):
+        if opt in ('-b', '--branches'):
             branches = [x.strip(' ') for x in arg.split(',')]
-        if opt in ('p', '--pullrequests'):
+        if opt in ('-p', '--pullrequests'):
             pr_flag = True
 
     if sys.argv[-1] == 'build':
