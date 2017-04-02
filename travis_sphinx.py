@@ -10,7 +10,7 @@ def run(*args):
         sys.exit(ret)
         
 def run_silent(*args):
-    ret = subprocess.call(args, stdout=open(os.devnull, 'wb'), strerr=open(os.devnull, 'wb'))
+    ret = subprocess.call(args, stdout=open(os.devnull, 'wb'), stderr=open(os.devnull, 'wb'))
     if ret != 0:
         print('error occured while pushing to gh-pages. Has your repo/token changed?')
         sys.exit(ret)
