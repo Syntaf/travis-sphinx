@@ -8,6 +8,12 @@ def run(*args):
     ret = subprocess.call(args, stdout=sys.stdout, stderr=sys.stderr)
     if ret != 0:
         sys.exit(ret)
+        
+def run_silent(*args):
+    ret = subprocess.call(args, stdout=open(os.devnull, 'wb'), strerr=open(os.devnull, 'wb'))
+    if ret != 0:
+        print('error occured while pushing to gh-pages. Has your repo/token changed?')
+        sys.exit(ret)
 
 def build_docs(source_dir, target_dir, flags):
     """
@@ -48,8 +54,10 @@ def deploy_docs(target_dir, branches, pr_flag):
         sys.stdout.flush()
         run('git', 'clone', 'https://github.com/davisp/ghp-import')
         run('./ghp-import/ghp_import.py', '-n', 'target/doc/build')
-        run('git', 'push', '-fq', 'https://%s@github.com/%s.git'
+        print('pushing to gh-pages...')
+        run_silent('git', 'push', '-fq', 'https://%s@github.com/%s.git'
             % (token, repo), 'gh-pages')
+        print('success!')
     else:
         print('build triggered for non-master branch \'' + branch + \
                 '\', skipping deploy...')
