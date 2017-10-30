@@ -1,10 +1,12 @@
-language: python - "2.7"
 sudo: false
+cache: pip
+language: python
+python:
+- '2.7'
 
 install:
-    - pip install --user git+https://github.com/Syntaf/travis-sphinx.git
-    - export PATH=$HOME/.local/bin:$PATH
+    - pip install $TRAVIS_BUILD_DIR
 
 script:
-    - travis-sphinx --pullrequests --source=test/docs/source build
-    - travis-sphinx deploy
+    - travis-sphinx build --source=test/docs/source
+    - travis-sphinx deploy --pullrequests

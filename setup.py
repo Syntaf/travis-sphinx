@@ -12,12 +12,13 @@ setup(
     packages = find_packages(),
     py_modules = ['travis_sphinx'],
     entry_points = {
-        'console_scripts' : ['travis-sphinx=travis_sphinx:main']
+        'console_scripts' : ['travis-sphinx=travis_sphinx.main:main']
     },
     install_requires=[
-        'sphinx'
+        'sphinx',
+        'click',
+        'ghp-import',
     ],
     classifiers = ['Topic :: Software Development :: Documentation',
                    'Programming Language :: Python'],
 )
-
