@@ -61,7 +61,7 @@ after_success:
 *build* will generate the actual documentation files while *deploy* will move those files to gh-pages. If you don't have your documentation in the standard `docs/source` path, you can specify **where** they are with `--source`. This tool also assumes that you would like to build and deploy the *master* branch and any *tags* pushed. If you would like to point the tool elsewhere, this can be solved using `--branches` , e.g. `travis-sphinx --branches=test,production` will build and deploy on **only** the test and production branches.
 ```
 script:
-    - travis-sphinx build --source=other/dir/doc build
+    - travis-sphinx build --source=other/dir/doc
     
 after_success:
     - travis-sphinx deploy
