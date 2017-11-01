@@ -61,7 +61,7 @@ after_success:
 *build* will generate the actual documentation files while *deploy* will move those files to gh-pages. If you don't have your documentation in the standard `docs/source` path, you can specify **where** they are with `--source`. This tool also assumes that you would like to build and deploy the *master* branch and any *tags* pushed. If you would like to point the tool elsewhere, this can be solved using `--branches` , e.g. `travis-sphinx --branches=test,production` will build and deploy on **only** the test and production branches.
 ```
 script:
-    - travis-sphinx --source=other/dir/doc build
+    - travis-sphinx build --source=other/dir/doc build
     
 after_success:
     - travis-sphinx deploy
@@ -96,18 +96,42 @@ Also see a working example at the [dnppy](https://github.com/NASA-DEVELOP/dnppy)
 
 ### Help
 ```
-travis-sphinx v1.4.0
-Usage: travis-sphinx [options] {actions}
+Usage: travis-sphinx [OPTIONS] COMMAND [ARGS]...
 
 Options:
-  -h, --help		 Provide information on script or following action
-  -s, --source		 Source directory of sphinx docs, default is docs/source
-  -o, --outdir       Directory to put html docs, default is target/doc/build
-  -n, --nowarn       Do no error on warnings
-  -b, --branches     Comma separated list of branches to build on. Default is =master
-  -p, --pullrequests Deploy on pull requests (not recommended)
-Actions:
-  build 		Build sphinx documentation
-  deploy		Deploy sphinx docs to travis branch
-```
+  --version               Show the version and exit.
+  -v, --verbose
+  -o, --outdir DIRECTORY  Directory to put html docs, default is target
+                          [default: doc/build]
+  --help                  Show this message and exit.
 
+Commands:
+  build   Build sphinx documentation.
+  deploy  Deploy sphinx docs to gh_pages branch by...
+
+
+Usage: travis-sphinx build [OPTIONS]
+
+  Build sphinx documentation.
+
+Options:
+  -s, --source DIRECTORY  Source directory of sphinx docs  [default:
+                          doc/source]
+  -n, --nowarn BOOLEAN    Do not error on warnings
+  --help                  Show this message and exit.
+
+
+Usage: travis-sphinx deploy [OPTIONS]
+
+  Deploy sphinx docs to gh_pages branch by pulling from output dir.
+
+Options:
+  -b, --branches TEXT        Comma separated list of branches to build on
+                             [default: master]
+  -p, --pullrequest BOOLEAN  Deploy on pull requests(not recommended)
+  -c, --cname TEXT           Write a CNAME file with the given CNAME.
+  -m, --message TEXT         The commit message to use on the target branch.
+                             [default: Update documentation]
+  --help                     Show this message and exit.
+
+```
