@@ -20,12 +20,6 @@ _logger = logging.getLogger(__name__)
     show_default=True
 )
 @click.option(
-    '-p', '--pullrequests',
-    type=click.BOOL,
-    is_flag=True,
-    help='Deploy on pull requests(not recommended)',
-)
-@click.option(
     '-c', '--cname',
     help='Write a CNAME file with the given CNAME.'
 )
@@ -36,7 +30,7 @@ _logger = logging.getLogger(__name__)
     show_default=True
 )
 @click.pass_context
-def deploy(ctx, branches, pullrequests, cname, message):
+def deploy(ctx, branches, cname, message):
     """
     Deploy built docs to gh-pages, uses ``GH_TOKEN`` for pushing built
     documentation files located in *target/doc* to gh
@@ -52,7 +46,7 @@ def deploy(ctx, branches, pullrequests, cname, message):
         click.ClickException("ERROR: GH_TOKEN is missing!")
 
     branches = branches.split(',')
-    if (branch in branches and (pr == 'false' or pullrequests)) or tag:
+    if (branch in branches and (pr == 'false')) or tag:
         remote = 'https://%s@github.com/%s.git' % (token, repo)
         call = ['ghp-import', '-p', '-f', '-n', '-r', remote]
         if cname:
