@@ -67,6 +67,9 @@ after_success:
     - travis-sphinx deploy
 ```
 ### Example Configuration
+
+**note:** See this repositories `.travis.yml` for a simpler configuration script. The below script is a bit convoluted in order to skirt around some travis rules. Both configurations should work fine however.
+
 ```
 language: python - "2.7"
 
@@ -128,7 +131,6 @@ Usage: travis-sphinx deploy [OPTIONS]
 Options:
   -b, --branches TEXT        Comma separated list of branches to build on
                              [default: master]
-  -p, --pullrequest BOOLEAN  Deploy on pull requests(not recommended)
   -c, --cname TEXT           Write a CNAME file with the given CNAME.
   -m, --message TEXT         The commit message to use on the target branch.
                              [default: Update documentation]
