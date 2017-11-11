@@ -68,7 +68,7 @@ after_success:
 ```
 ### Example Configuration
 
-**note:** See this repositories `.travis.yml` for a simpler configuration script. The below script is a bit convoluted in order to skirt around some travis rules. Both configurations should work fine however.
+**note:** See this repositories `.travis.yml` for a simpler configuration script. The below script is for conda environments which have a number of dependencies that also need to be installed.
 
 ```
 language: python - "2.7"
