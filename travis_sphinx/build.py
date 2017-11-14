@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
     '-s', '--source',
     type=click.Path(dir_okay=True, file_okay=False, exists=True),
     help='Source directory of sphinx docs',
-    default='doc/source',
+    default='docs/source',
     show_default=True
 )
 @click.option(
