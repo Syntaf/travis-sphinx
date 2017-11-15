@@ -3,10 +3,14 @@ cache: pip
 language: python
 python:
 - '2.7'
+- '3.6'
 
 install:
-    - pip install $TRAVIS_BUILD_DIR
+    - pip install tox-travis
+    - pip install codecov
 
 script:
-    - travis-sphinx build --source=test/docs/source
-    - travis-sphinx deploy
+    - tox
+
+after_success:
+      - codecov

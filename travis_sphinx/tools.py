@@ -36,29 +36,11 @@ def log_cmd(cmd, cwd=None, level=logging.DEBUG, echo=False):
     _logger.log(level, '%s$ %s', cwd or '.', s)
 
 
-def call(cmd, cwd=None, log_level=logging.DEBUG, echo=False):
-    _adapt_executable(cmd)
-    log_cmd(cmd, cwd=cwd, level=log_level, echo=echo)
-    try:
-        return subprocess.call(cmd, cwd=cwd)
-    except subprocess.CalledProcessError:
-        raise click.ClickException(cmd_string(cmd))
-
-
 def check_call(cmd, cwd=None, log_level=logging.DEBUG, echo=False):
     _adapt_executable(cmd)
     log_cmd(cmd, cwd=cwd, level=log_level, echo=echo)
     try:
         return subprocess.check_call(cmd, cwd=cwd)
-    except subprocess.CalledProcessError:
-        raise click.ClickException(cmd_string(cmd))
-
-
-def check_output(cmd, cwd=None, log_level=logging.DEBUG, echo=False):
-    _adapt_executable(cmd)
-    log_cmd(cmd, cwd=cwd, level=log_level, echo=echo)
-    try:
-        return subprocess.check_output(cmd, cwd=cwd)
     except subprocess.CalledProcessError:
         raise click.ClickException(cmd_string(cmd))
 

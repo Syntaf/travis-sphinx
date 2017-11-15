@@ -6,6 +6,7 @@ import click
 
 from .main import main
 from .tools import check_call
+from .tools import log_cmd
 
 _logger = logging.getLogger(__name__)
 
@@ -36,11 +37,12 @@ def deploy(ctx, branches, cname, message):
     documentation files located in *target/doc* to gh
 
     """
-    branch = os.environ['TRAVIS_BRANCH']
-    pr = os.environ['TRAVIS_PULL_REQUEST']
-    token = os.environ.get('GH_TOKEN')
-    repo = os.environ['TRAVIS_REPO_SLUG']
-    tag = os.environ['TRAVIS_TAG']
+    branch = os.environ.get('TRAVIS_BRANCH', '')
+    pr = os.environ.get('TRAVIS_PULL_REQUEST', '')
+    token = os.environ.get('GH_TOKEN', '')
+    repo = os.environ.get('TRAVIS_REPO_SLUG', '')
+    tag = os.environ.get('TRAVIS_TAG', '')
+    is_pytest_mode = 'PYTEST' in os.environ
     outdir = ctx.obj['outdir']
     if token is None:
         click.ClickException("ERROR: GH_TOKEN is missing!")
@@ -55,7 +57,10 @@ def deploy(ctx, branches, cname, message):
             call.extend(['-m', message])
         call.append(outdir)
         _logger.info('uploading docs...')
-        check_call(call)
+        if is_pytest_mode:
+            log_cmd(call, echo=True)
+        else:
+            check_call(call)
         _logger.info('success!')
     else:
         _logger.info("Deploy triggered for non-master branch '%s': skipping "

@@ -37,7 +37,7 @@ def build(ctx, source, nowarn):
     if not nowarn:
         args.append('-W')
     if sphinx.build_main(args + [source, outdir]):
-        click.ClickException("Error building sphinx doc")
+        raise click.ClickException("Error building sphinx doc")
 
 
 main.add_command(build)
