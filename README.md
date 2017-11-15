@@ -1,5 +1,8 @@
-travis-sphinx [![Build Status](https://travis-ci.org/Syntaf/travis-sphinx.svg?branch=master)](https://travis-ci.org/Syntaf/travis-sphinx)
-================
+[![Build Status](https://travis-ci.org/Syntaf/travis-sphinx.svg?branch=master)](https://travis-ci.org/Syntaf/travis-sphinx)
+[![codecov](https://codecov.io/gh/Syntaf/travis-sphinx/branch/master/graph/badge.svg)](https://codecov.io/gh/Syntaf/travis-sphinx)
+
+travis-sphinx
+=============
 A standalone script for automated building and deploying of sphinx docs via travis-ci
 
 #### What does it do? 
