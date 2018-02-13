@@ -34,9 +34,13 @@ def build(ctx, source, nowarn):
     _logger.info('building documentation')
     outdir = ctx.obj['outdir']
     args = ['-b html']
+    try:
+        sphinx_build = sphinx.build_main
+    except AttributeError:
+        sphinx_build = sphinx.build.build_main
     if not nowarn:
         args.append('-W')
-    if sphinx.build_main(args + [source, outdir]):
+    if sphinx_build(args + [source, outdir]):
         raise click.ClickException("Error building sphinx doc")
 
 
