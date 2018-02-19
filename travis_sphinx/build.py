@@ -33,10 +33,21 @@ def build(ctx, source, nowarn):
     """
     _logger.info('building documentation')
     outdir = ctx.obj['outdir']
-    args = ['-b html']
+
+    try:
+        # Location from Sphinx 1.7 on
+        sphinx_build = sphinx.cmd.build.build_main
+        # args have to be specified this way for 1.7+, otherwise one gets
+        # "Builder name  html not registered or available through entry point"
+        args = ['-b', 'html']
+    except AttributeError:
+        # Old location
+        sphinx_build = sphinx.build_main
+        args = ['-b html']
+
     if not nowarn:
         args.append('-W')
-    if sphinx.build_main(args + [source, outdir]):
+    if sphinx_build(args + [source, outdir]):
         raise click.ClickException("Error building sphinx doc")
 
 
