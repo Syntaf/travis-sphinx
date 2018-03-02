@@ -2,7 +2,13 @@
 import logging
 
 import click
-import sphinx
+try:
+    # Sphinx 1.7+
+    from sphinx.cmd.build import build_main
+    sphinx_version_at_least_1_7 = True
+except AttributeError:
+    from sphinx import build_main
+    sphinx_version_at_least_1_7 = False
 
 from .main import main
 
@@ -34,20 +40,17 @@ def build(ctx, source, nowarn):
     _logger.info('building documentation')
     outdir = ctx.obj['outdir']
 
-    try:
-        # Location from Sphinx 1.7 on
-        sphinx_build = sphinx.cmd.build.build_main
+    if sphinx_version_at_least_1_7:
         # args have to be specified this way for 1.7+, otherwise one gets
         # "Builder name  html not registered or available through entry point"
+        # See https://github.com/sphinx-doc/sphinx/issues/4623
         args = ['-b', 'html']
-    except AttributeError:
-        # Old location
-        sphinx_build = sphinx.build_main
+    else:
         args = ['-b html']
 
     if not nowarn:
         args.append('-W')
-    if sphinx_build(args + [source, outdir]):
+    if build_main(args + [source, outdir]):
         raise click.ClickException("Error building sphinx doc")
 
 
