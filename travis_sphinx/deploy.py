@@ -52,10 +52,11 @@ def deploy(ctx, branches, cname, message):
     outdir = ctx.obj['outdir']
     if token is None:
         click.ClickException("ERROR: GH_TOKEN is missing!")
+    github_host = os.environ.get('GH_HOST', 'github.com')
 
     branches = branches.split(',')
     if (branch in branches and (pr == 'false')) or tag:
-        remote = 'https://%s@github.com/%s.git' % (token, repo)
+        remote = 'https://%s@%s/%s.git' % (token, github_host, repo)
         call = ['ghp-import', '-p', '-f', '-n', '-r', remote]
         if cname:
             call.extend(['-c', cname])
