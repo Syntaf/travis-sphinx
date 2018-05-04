@@ -36,11 +36,17 @@ def deploy(ctx, branches, cname, message):
     Deploy built docs to gh-pages, uses ``GH_TOKEN`` for pushing built
     documentation files located in *target/doc* to gh
 
+    If the environment variable ``GH_REPO_SLUG`` is set, the docs will be
+    deployed to the specified github repository. Otherwise, the environment
+    variable of the travis build will be used (``TRAVIS_REPO_SLUG``).
+
     """
     branch = os.environ.get('TRAVIS_BRANCH', '')
     pr = os.environ.get('TRAVIS_PULL_REQUEST', '')
     token = os.environ.get('GH_TOKEN', '')
-    repo = os.environ.get('TRAVIS_REPO_SLUG', '')
+    repo = os.environ.get('GH_REPO_SLUG')
+    if repo is None:
+        repo = os.environ.get('TRAVIS_REPO_SLUG', '')
     tag = os.environ.get('TRAVIS_TAG', '')
     is_pytest_mode = 'PYTEST' in os.environ
     outdir = ctx.obj['outdir']
