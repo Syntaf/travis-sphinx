@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'travis-sphinx',
-    version = '2.1.0',
+    version = '2.1.1',
     description=('Manages building sphinx documentation and deploying documentation to gh-pages via travis'),
     author='Grant Mercer',
     author_email='gmercer015@gmail.com',
