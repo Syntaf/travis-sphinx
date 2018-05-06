@@ -126,3 +126,13 @@ def test_deploy_on_pr(builded_doc, travis_env):
     # by default the deploy is not done if we are on a PR
     assert result.exit_code == 0, result.output
     assert result.output == ''
+
+def test_deploy_custom_repo(builded_doc, travis_env):
+    travis_env['GH_REPO_SLUG'] = 'org2/fork-of-travis-sphinx'
+    runner = CliRunner()
+    result = runner.invoke(
+        main, ['-o', builded_doc, 'deploy'], env=travis_env)
+    assert result.exit_code == 0, result.output
+    assert result.output == 'ghp-import -p -f -n -r ' \
+                            'https://token@github.com/org2/fork-of-travis-sphinx.git ' \
+                            '-m Update\ documentation %s\n' % builded_doc
