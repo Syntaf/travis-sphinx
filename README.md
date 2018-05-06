@@ -13,6 +13,7 @@ travis-sphinx aims to take the hassle out of building and pushing docs to your g
 * [Getting Started](#getting-started)
   * [Obtaining a personal access token](#obtaining-a-personal-access-token)
   * [Calling travis-sphinx](#calling-travis-sphinx)
+  * [Custom repository deployment](#specifying-a-custom-deploy-repository)
 * [Example](#example-configuration)
 * [Help](#help)
 
@@ -69,6 +70,15 @@ script:
 after_success:
     - travis-sphinx deploy
 ```
+
+#### Specifying a Custom Deploy Repository
+
+Per [#38](https://github.com/Syntaf/travis-sphinx/pull/38), you can now specify a custom deployment repository if you're using a fork for working on documentation. To do so, under your travis environment variables, using the following constant:
+
+```
+GH_REPO_SLUG = 'syntaf/fork-of-my-repo'
+```
+
 ### Example Configuration
 
 **note:** See this repositories `.travis.yml` for a simpler configuration script. The below script is for conda environments which have a number of dependencies that also need to be installed.
