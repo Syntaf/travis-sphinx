@@ -79,6 +79,15 @@ def test_deploy_default(builded_doc, travis_env):
                             'https://token@github.com/org/travis-sphinx.git ' \
                             '-m Update\ documentation %s\n' % builded_doc
 
+def test_deploy_custom_host(builded_doc, travis_env):
+    runner = CliRunner()
+    result = runner.invoke(
+        main, ['-o', builded_doc, 'deploy', '-x', 'company.github.com'], env=travis_env)
+    assert result.exit_code == 0, result.output
+    assert result.output == 'ghp-import -p -f -n -r ' \
+                            'https://token@company.github.com/org/travis-sphinx.git ' \
+                            '-m Update\ documentation %s\n' % builded_doc
+
 
 def test_deploy_commit_message(builded_doc, travis_env):
     runner = CliRunner()

@@ -142,11 +142,12 @@ Usage: travis-sphinx deploy [OPTIONS]
   Deploy sphinx docs to gh_pages branch by pulling from output dir.
 
 Options:
-  -b, --branches TEXT        Comma separated list of branches to build on
-                             [default: master]
-  -c, --cname TEXT           Write a CNAME file with the given CNAME.
-  -m, --message TEXT         The commit message to use on the target branch.
-                             [default: Update documentation]
-  --help                     Show this message and exit.
-
+  -b, --branches TEXT     Comma separated list of branches to build on
+                          [default: master]
+  -c, --cname TEXT        Write a CNAME file with the given CNAME.
+  -m, --message TEXT      The commit message to use on the target branch.
+                          [default: Update documentation]
+  -x, --deploy-host TEXT  Specify a custom domain for GitHub, useful for
+                          enterprise domains.  [default: github.com]
+  --help                  Show this message and exit.
 ```
