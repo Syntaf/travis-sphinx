@@ -30,8 +30,15 @@ _logger = logging.getLogger(__name__)
     help='The commit message to use on the target branch.',
     show_default=True
 )
+@click.option(
+    '-x', '--deploy-host',
+    envvar='DEPLOY_HOST',
+    default='github.com',
+    help='Specify a custom domain for GitHub, useful for enterprise domains.',
+    show_default=True,
+)
 @click.pass_context
-def deploy(ctx, branches, cname, message):
+def deploy(ctx, branches, cname, message, deploy_host):
     """
     Deploy built docs to gh-pages, uses ``GH_TOKEN`` for pushing built
     documentation files located in *target/doc* to gh
@@ -55,7 +62,7 @@ def deploy(ctx, branches, cname, message):
 
     branches = branches.split(',')
     if (branch in branches and (pr == 'false')) or tag:
-        remote = 'https://%s@github.com/%s.git' % (token, repo)
+        remote = 'https://%s@%s/%s.git' % (token, deploy_host, repo)
         call = ['ghp-import', '-p', '-f', '-n', '-r', remote]
         if cname:
             call.extend(['-c', cname])
