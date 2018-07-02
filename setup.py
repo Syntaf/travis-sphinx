@@ -9,7 +9,7 @@ setup(
     url='https://github.com/syntaf/travis-sphinx',
     download_url='https://github.com/Syntaf/travis-sphinx/archive/master.zip',
     keywords=['documentation', 'travis', 'python', 'deploy'],
-    packages = find_packages(),
+    packages=find_packages(exclude=('tests',)),
     py_modules = ['travis_sphinx'],
     entry_points = {
         'console_scripts' : ['travis-sphinx=travis_sphinx.main:main']
